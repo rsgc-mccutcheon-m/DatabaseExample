@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
+    
+    // MARK: Properties
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var address: UITextField!
@@ -27,6 +29,11 @@ class ViewController: UIViewController {
         let directoryPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = directoryPaths[0]
         databasePath = documentsDirectory.appending("contacts.db") as NSString
+        
+        //Handle the Text field for name. It's user input will be deal with through callbacks to methods declared below
+        
+        name.delegate = self
+        
         
         // Initialize (create) the database if it doesn't already exist
         if !fileManager.fileExists(atPath: databasePath as String) {
@@ -63,6 +70,7 @@ class ViewController: UIViewController {
         
     }
     
+    // MARK: Actions
     
     @IBAction func saveData(_ sender: Any) {
         
@@ -185,6 +193,18 @@ class ViewController: UIViewController {
         }
         
     }
+    
+    // MARK: UITextFieldDelegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print(name.text)
+        
+        
+        
+    }
+    
+    
+    
     
 }
 
