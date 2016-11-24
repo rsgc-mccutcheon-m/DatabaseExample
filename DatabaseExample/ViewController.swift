@@ -124,7 +124,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    @IBAction func findContact(_ sender: Any) {
+func findContact() {
         
         // Establish path to database through FMDatabase wrapper
         if let contactDB = FMDatabase(path: databasePath as String) {
@@ -140,7 +140,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 }
                 
                 // Create SQL statement to find data
-                let SQL = "SELECT address, phone FROM CONTACTS WHERE name = '\(nameValue)'"
+                let SQL = "SELECT address, phone FROM CONTACTS WHERE name LIKE %'\(nameValue)'%"
                 
                 // Run query
                 do {
@@ -201,6 +201,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         
         
+    }
+    
+    @IBAction func nameTextPartial(_ sender: Any) {
+        findContact()
+    }
+    
+    @IBAction func findOnName(_ sender: Any) {
+        findContact()
     }
     
     
